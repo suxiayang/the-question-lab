@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Question Lab</title>
+  <meta name="description" content="A cognitive experiment after AI. We don't provide answers. We re-pose the question." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230B0B0F'/%3E%3Ccircle cx='50' cy='48' r='33' fill='none' stroke='%23C6FF00' stroke-width='9'/%3E%3Cpath d='M 64 66 L 80 84' stroke='%23C6FF00' stroke-width='9' fill='none'/%3E%3Ccircle cx='46' cy='44' r='7' fill='%23C6FF00'/%3E%3Cpath d='M 47 51 C 49 56, 54 58, 53 64 C 52 68, 56 70, 60 67' stroke='%23C6FF00' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <style>
+    html, body { margin: 0; background: #0B0B0F; color: #EDEDED; }
+    body { font-family: 'Space Grotesk', system-ui, sans-serif; }
+    html[lang="zh-CN"] body { font-family: 'Noto Sans SC', system-ui, sans-serif; }
+    a { color: inherit; }
+  </style>
+</head>
+<body class="tql-root">
+  <div id="root"></div>
+
+  <script src="i18n.js"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="brand.jsx"></script>
+  <script type="text/babel" src="shell.jsx"></script>
+  <script type="text/babel" src="page-home.jsx"></script>
+  <script type="text/babel" src="page-others.jsx"></script>
+
+  <script type="text/babel">
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "accent": "#C6FF00"
+    }/*EDITMODE-END*/;
+
+    const ACCENT_OPTIONS = [
+      { value: '#C6FF00', label: 'Lime' },
+      { value: '#FF4D2E', label: 'Signal Red' },
+      { value: '#5BFFE5', label: 'Plasma' },
+      { value: '#F2F2F2', label: 'White' },
+      { value: '#FF59C7', label: 'Magenta' },
+    ];
+
+    function Router({ accent }) {
+      const route = useRoute();
+      const { parts } = route;
+      if (parts.length === 0) return <HomePage accent={accent} />;
+      if (parts[0] === 'episodes' && !parts[1]) return <EpisodesPage accent={accent} />;
+      if (parts[0] === 'episodes' && parts[1]) return <EpisodeDetailPage id={parts[1]} accent={accent} />;
+      if (parts[0] === 'index') return <IndexPage slug={parts[1]} accent={accent} />;
+      if (parts[0] === 'manifesto') return <ManifestoPage accent={accent} />;
+      if (parts[0] === 'subscribe') return <SubscribePage accent={accent} />;
+      return <NotFound />;
+    }
+
+    function App() {
+      const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+      React.useEffect(() => {
+        document.documentElement.style.setProperty('--tql-accent', tweaks.accent);
+      }, [tweaks.accent]);
+      return (
+        <LangProvider>
+          <Header accent={tweaks.accent} />
+          <Router accent={tweaks.accent} />
+          <Footer />
+          <TweaksPanel title="Tweaks">
+            <TweakSection label="Accent color">
+              <TweakRadio
+                value={tweaks.accent}
+                onChange={(v) => setTweak('accent', v)}
+                options={ACCENT_OPTIONS}
+              />
+            </TweakSection>
+          </TweaksPanel>
+        </LangProvider>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

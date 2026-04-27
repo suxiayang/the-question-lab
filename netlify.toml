@@ -1,0 +1,9 @@
+/* Netlify config — no build, publish site/ root as-is */
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+    [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Question Lab · 项目介绍</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="deck-stage.js"></script>
+  <style>
+    html, body { margin: 0; background: #050507; color: #EDEDED; font-family: 'Space Grotesk', system-ui, sans-serif; overflow: hidden; }
+    deck-stage { width: 100vw; height: 100vh; display: block; }
+    section.slide {
+      width: 1920px; height: 1080px;
+      background: #0B0B0F;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .zh { font-family: 'Noto Sans SC', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
+    .accent { color: var(--tql-accent); }
+    .grid-bg {
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    .chrome-corner {
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      color: #555558;
+      text-transform: uppercase;
+    }
+    .chrome-tl { top: 56px; left: 56px; display: flex; align-items: center; gap: 16px; }
+    .chrome-tr { top: 56px; right: 56px; }
+    .chrome-bl { bottom: 56px; left: 56px; }
+    .chrome-br { bottom: 56px; right: 56px; }
+    .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 16px; letter-spacing: 0.22em; text-transform: uppercase; color: #888; }
+    .h1 { font-weight: 700; letter-spacing: -0.035em; line-height: 0.92; }
+    .h2 { font-weight: 600; letter-spacing: -0.025em; line-height: 1.0; }
+    .body { font-weight: 400; letter-spacing: -0.005em; line-height: 1.45; color: #d6d6d6; }
+    .quiet { color: #6e6e72; }
+    .divider { height: 1px; background: #25252a; }
+    .kbd { display: inline-block; padding: 2px 8px; border: 1px solid #2a2a2f; border-radius: 2px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #888; }
+    .pulse-dot { display: inline-block; width: 8px; height: 8px; background: var(--tql-accent); border-radius: 50%; animation: pdot 1.6s ease-in-out infinite; }
+    @keyframes pdot { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+    /* Cover scanlines */
+    .scanlines::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background: repeating-linear-gradient(to bottom,
+        rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px,
+        transparent 1px, transparent 4px);
+      z-index: 2;
+    }
+    /* Cell grids for episode tables */
+    table.eps { width: 100%; border-collapse: collapse; }
+    table.eps th, table.eps td { border-bottom: 1px solid #1d1d22; padding: 18px 0; vertical-align: top; text-align: left; }
+    table.eps th { font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 0.18em; color: #6e6e72; text-transform: uppercase; padding-bottom: 14px; font-weight: 400; }
+    table.eps td.num { font-family: 'JetBrains Mono', monospace; color: var(--tql-accent); font-size: 18px; width: 110px; padding-right: 24px; letter-spacing: 0.06em; }
+    table.eps td.theme { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #b8b8be; letter-spacing: 0.14em; text-transform: uppercase; width: 220px; padding-right: 24px; }
+    table.eps td.q { font-size: 26px; font-weight: 500; line-height: 1.25; padding-right: 32px; letter-spacing: -0.012em; color: #f2f2f2; }
+    table.eps td.q .zh { display: block; color: #9b9ba0; font-weight: 400; font-size: 18px; margin-top: 4px; line-height: 1.4; }
+    table.eps td.thinkers { font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #888; line-height: 1.4; }
+  </style>
+</head>
+<body>
+  <deck-stage>
+
+    <!-- =================================================== -->
+    <!-- 01 COVER -->
+    <!-- =================================================== -->
+    <section class="slide grid-bg scanlines" data-screen-label="01 Cover">
+      <!-- TQL mark + label -->
+      <div class="chrome-tl">
+        <svg width="36" height="36" viewBox="0 0 100 100">
+          <circle cx="50" cy="48" r="33" fill="none" stroke="#C6FF00" stroke-width="9"/>
+          <path d="M 64 66 L 80 84" stroke="#C6FF00" stroke-width="9" fill="none"/>
+          <circle cx="46" cy="44" r="7" fill="#C6FF00"/>
+          <path d="M 47 51 C 49 56, 54 58, 53 64 C 52 68, 56 70, 60 67" stroke="#C6FF00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div style="color:#fff; font-weight:700; font-size:18px; letter-spacing:-0.01em;">THE QUESTION LAB</div>
+          <div style="font-size:11px; letter-spacing:0.2em; margin-top:3px;">EST. 2024 · BEIJING</div>
+        </div>
+      </div>
+      <div class="chrome-tr"><span class="pulse-dot" style="margin-right:10px;"></span>PROJECT BRIEF · v1.0 · 2026</div>
+      <div class="chrome-bl">// 48 EPISODES · 4 SEASONS · 2026—2028</div>
+      <div class="chrome-br">PAGE 01 / 30</div>
+
+      <div style="position:absolute; left:120px; top:50%; transform:translateY(-50%); max-width:1680px;">
+        <div class="eyebrow accent" style="margin-bottom:48px;">↳ A COGNITIVE EXPERIMENT AFTER AI</div>
+        <h1 class="h1" style="font-size:188px; margin:0 0 36px; max-width:1680px;">
+          Re-questioning<br/>
+          the <span class="accent">fundamentals.</span>
+        </h1>
+        <h2 class="zh h2" style="font-size:82px; margin:0 0 64px; color:#9b9ba0; font-weight:400; letter-spacing:0;">
+          AI 时代，<span class="accent">重新提问</span>那些最根本的问题。
+        </h2>
+        <div style="display:flex; gap:96px; font-family:'JetBrains Mono', monospace; font-size:16px; color:#888; letter-spacing:0.14em; text-transform:uppercase;">
+          <div><span class="quiet" style="display:block; font-size:12px; margin-bottom:8px;">FORMAT</span>Vodcast · 14–18 MIN</div>
+          <div><span class="quiet" style="display:block; font-size:12px; margin-bottom:8px;">SCOPE</span>4 Seasons · 48 Episodes</div>
+          <div><span class="quiet" style="display:block; font-size:12px; margin-bottom:8px;">PERIOD</span>2026 — 2028</div>
+          <div><span class="quiet" style="display:block; font-size:12px; margin-bottom:8px;">LANGUAGE</span>中文 · English</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================== -->
+    <!-- 02 INDEX -->
+    <!-- =================================================== -->
+    <section class="slide" data-screen-label="02 Index">
+      <div class="chrome-tl mono">// CONTENTS · 目录</div>
+      <div class="chrome-br mono">02 / 30</div>
+      <div style="padding:140px 120px;">
+        <h2 class="h2" style="font-size:84px; margin:0 0 16px;">What\u2019s inside.</h2>
+        <h3 class="zh" style="font-size:36px; margin:0 0 80px; color:#9b9ba0; font-weight:400;">本文档的结构。</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:#1d1d22; border:1px solid #1d1d22;">
+          <!-- repeated cells -->
+          <!-- I -->
+          <div style="background:#0B0B0F; padding:36px 40px;"><div class="mono accent" style="font-size:14px; letter-spacing:0.2em; margin-bottom:10px;">§ 01</div><div style="font-size:30px; font-weight:600; margin-bottom:6px;">Channel philosophy</div><div class="zh quiet" style="font-size:18px;">频道哲学定位</div></div>
+          <div style="background:#0B0B0F; padding:36px 40px;"><div class="mono accent" style="font-size:14px; letter-spacing:0.2em; margin-bottom:10px;">§ 02</div><div style="font-size:30px; font-weight:600; margin-bottom:6px;">A map of AI philosophy</div><div class="zh quiet" style="font-size:18px;">AI 哲学的完整学术地图</div></div>
+          <div style="background:#0B0B0F; padding:36px 40px;"><div class="mono accent" style="font-size:14px; letter-spacing:0.2em; margin-bottom:10px;">§ 03</div><div style="font-size:30px; font-weight:600; margin-bottom:6px;">The four-season arc</div><div class="zh quiet" style="font-size:18px;">四季总架构</div></div>
+          <div style="background:#0B0B0F; padding:36px 40px;"><div class="mono accent" style="font-size:14px; letter-spacing:0.2em; margin-bottom:10px;">§ 04</div><div style="font-size:30px; font-weight:600; margin-bottom:6px;">The 48 episodes</div><div class="zh quiet" style="font-size:18px;">48 集节目细目</div></div>
+          <div style="background:#0B0B0F; padding:36px 40px;"><div class="mono accent" style="font-size:14px; letter-spacing:0.2em; margin-bottom:10px;">§ 05</div><div style="font-size:30px; font-weight:600; margin-bottom:6px;">Production system</div><div class="zh quiet" style="font-size:18px;">制作系统与流程</div></div>
+          <div style="background:#0B0B0F; padding:36px 40px;"><div class="mono accent" style="font-size:14px; letter-spacing:0.2em; margin-bottom:10px;">§ 06</div><div style="font-size:30px; font-weight:600; margin-bottom:6px;">Brand &amp; visual system</div><div class="zh quiet" style="font-size:18px;">品牌与视觉系统</div></div>
+          <div style="background:#0B0B0F; padding:36px 40px;"><div class="mono accent" style="font-size:14px; letter-spacing:0.2em; margin-bottom:10px;">§ 07</div><div style="font-size:30px; font-weight:600; margin-bottom:6px;">Risks &amp; mitigations</div><div class="zh quiet" style="font-size:18px;">风险与对策</div></div>
+          <div style="background:#0B0B0F; padding:36px 40px;"><div class="mono accent" style="font-size:14px; letter-spacing:0.2em; margin-bottom:10px;">§ 08</div><div style="font-size:30px; font-weight:600; margin-bottom:6px;">Mission</div><div class="zh quiet" style="font-size:18px;">频道使命</div></div>
+        </div>
+      </div>
+    </section>
+
+  </deck-stage>
+
+  <!-- Continued in subsequent slide files -->
+  <script>
+    // Wire dynamic content insertion from secondary file (split for size)
+    fetch('slides-content.html').then(r => r.text()).then(html => {
+      const stage = document.querySelector('deck-stage');
+      stage.insertAdjacentHTML('beforeend', html);
+      // Refresh deck (it tagged the original 2 slides already; new ones get tagged on next paint)
+      // The deck-stage component uses MutationObserver so this should be picked up automatically.
+    }).catch(err => console.error('failed to load slides:', err));
+  </script>
+</body>
+</html>
