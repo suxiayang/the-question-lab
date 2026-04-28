@@ -10,7 +10,7 @@ function HomePage({ accent }) {
     'WE DO NOT PROVIDE ANSWERS',
     'WE PUT THE QUESTION BACK ON THE TABLE',
     'IS SUPERINTELLIGENCE A REAL THREAT?',
-    'BEIJING · BIWEEKLY · SUNDAY',
+    'HONG KONG · BIWEEKLY · SUNDAY',
     'NO TRACKERS · NO ADS · NO ANSWERS',
   ] : [
     'V1 节目 · 4 季 · 48 集 · 2026 — 2028',
@@ -20,7 +20,7 @@ function HomePage({ accent }) {
     '我们不提供答案',
     '我们把问题摆回桌面',
     '超级智能是真实威胁吗？',
-    '北京 · 每两周 · 周日',
+    '香港 · 每两周 · 周日',
     '无追踪 · 无广告 · 无答案',
   ];
   return (
@@ -424,18 +424,40 @@ function InterrogationConsole({ accent }) {
   const interrogate = async (question) => {
     if (!question.trim()) return;
     setLoading(true); setOut(null); setStreamingLine(0);
+
+    /* Resolution order:
+       1. window.TQL_INTERROGATE_URL — Cloudflare Worker proxy (set in index.html)
+       2. window.claude.complete   — Claude.ai's hosted preview bridge (only present in Claude.ai)
+       3. canned fallback           — final degradation, makes the UI still demoable */
+    const workerUrl = (typeof window !== 'undefined' && window.TQL_INTERROGATE_URL) || null;
+    const langInstr = lang === 'en' ? 'Reply in English only.' : '只用简体中文回答。';
+    const prompt = `You are an analytical philosopher hosting a podcast called The Question Lab. ${langInstr} A user submits the question: "${question}".\n\nReturn ONLY a JSON object with this exact shape (no prose, no markdown fences):\n{\n  "assumption": "<one sentence (under 18 words) naming the hidden assumption inside the user's question>",\n  "reposed_a": "<a sharper philosophical question (under 14 words)>",\n  "reposed_b": "<a different sharper philosophical question (under 14 words)>"\n}`;
+
     try {
-      const langInstr = lang === 'en' ? 'Reply in English only.' : '只用简体中文回答。';
-      const prompt = `You are an analytical philosopher hosting a podcast called The Question Lab. ${langInstr} A user submits the question: "${question}".\n\nReturn ONLY a JSON object with this exact shape (no prose, no markdown fences):\n{\n  "assumption": "<one sentence (under 18 words) naming the hidden assumption inside the user's question>",\n  "reposed_a": "<a sharper philosophical question (under 14 words)>",\n  "reposed_b": "<a different sharper philosophical question (under 14 words)>"\n}`;
-      const text = await window.claude.complete(prompt);
-      const m = text.match(/\{[\s\S]*\}/);
-      const parsed = JSON.parse(m ? m[0] : text);
+      let parsed = null;
+      if (workerUrl) {
+        const resp = await fetch(workerUrl, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ question, lang }),
+        });
+        if (!resp.ok) throw new Error('worker ' + resp.status);
+        parsed = await resp.json();
+        if (parsed.error) throw new Error(parsed.error);
+      } else if (typeof window !== 'undefined' && window.claude && window.claude.complete) {
+        const text = await window.claude.complete(prompt);
+        const m = text.match(/\{[\s\S]*\}/);
+        parsed = JSON.parse(m ? m[0] : text);
+      } else {
+        throw new Error('no backend');
+      }
       setOut(parsed);
     } catch (e) {
       setOut({
-        assumption: lang==='en'?'That "intelligence" and "the human" are commensurate categories.':'人类与"智能"是同一个范畴。',
-        reposed_a: lang==='en'?'What in us is not intelligence?':'我们身上有什么不是"智能"？',
-        reposed_b: lang==='en'?'When did we equate thinking with output?':'我们何时把思考等同于产出？',
+        assumption: lang === 'en' ? 'That "intelligence" and "the human" are commensurate categories.' : '人类与"智能"是同一个范畴。',
+        reposed_a:  lang === 'en' ? 'What in us is not intelligence?' : '我们身上有什么不是"智能"？',
+        reposed_b:  lang === 'en' ? 'When did we equate thinking with output?' : '我们何时把思考等同于产出？',
+        _fallback: true,
       });
     } finally { setLoading(false); }
   };
@@ -480,32 +502,50 @@ function InterrogationConsole({ accent }) {
             </div>
 
             {/* prompt */}
-            <div style={{ padding:'24px 20px 12px' }}>
-              <div style={{ display:'flex', alignItems:'center', gap:10, fontFamily:'var(--font-mono)', fontSize:13 }}>
-                <span style={{ color:accent }}>$</span>
+            <div style={{ padding:'20px 20px 12px' }}>
+              <label className="tql-prompt" htmlFor="tql-q-input"
+                onClick={() => { const el = document.getElementById('tql-q-input'); if (el) el.focus(); }}
+                style={{ display:'flex', alignItems:'center', gap:10, fontFamily:'var(--font-mono)', fontSize:14, padding:'14px 16px', border:'1px solid var(--tql-line-2)', background:'rgba(198,255,0,0.02)', cursor:'text', transition:'border-color .2s, box-shadow .2s, background .2s' }}>
+                <span style={{ color:accent, fontWeight:600 }}>$</span>
                 <input
+                  id="tql-q-input"
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && interrogate(q)}
                   placeholder={t.placeholder_q}
-                  style={{ flex:1, background:'transparent', border:'none', outline:'none', color:'#fff', fontFamily:'var(--font-mono)', fontSize:13, letterSpacing:0 }}
+                  maxLength={500}
+                  autoComplete="off"
+                  spellCheck="false"
+                  style={{ flex:1, minWidth:0, background:'transparent', border:'none', outline:'none', color:'#fff', fontFamily:'var(--font-mono)', fontSize:14, letterSpacing:0, caretColor: accent, padding:'4px 0' }}
                 />
-                <button onClick={() => interrogate(q)} disabled={loading} style={{ background:accent, color:'#0B0B0F', border:'none', padding:'8px 14px', fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'0.18em', fontWeight:600, cursor:'pointer' }}>
+                <button onClick={() => interrogate(q)} disabled={loading || !q.trim()} className="btn-lift" style={{ background: q.trim() && !loading ? accent : 'var(--tql-line-2)', color: q.trim() && !loading ? '#0B0B0F' : 'var(--tql-mid)', border:'none', padding:'10px 16px', fontFamily:'var(--font-mono)', fontSize:11, letterSpacing:'0.18em', fontWeight:600, cursor: q.trim() && !loading ? 'pointer' : 'not-allowed', whiteSpace:'nowrap' }}>
                   {loading ? t.parsing : '↵ ' + t.interrogate}
                 </button>
-              </div>
-              <div style={{ display:'flex', gap:8, marginTop:12, flexWrap:'wrap', fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'0.15em', color:'var(--tql-mid)' }}>
+              </label>
+              <div style={{ display:'flex', gap:8, marginTop:14, flexWrap:'wrap', alignItems:'center', fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'0.15em', color:'var(--tql-mid)' }}>
                 <span>// {t.try.toLowerCase()}:</span>
                 {samples.map(s => (
-                  <button key={s} onClick={() => { setQ(s); interrogate(s); }} style={{ background:'transparent', border:'1px solid var(--tql-line-2)', color:'var(--tql-cool)', padding:'3px 8px', cursor:'pointer', fontFamily:'var(--font-mono)', fontSize:10 }}>{s}</button>
+                  <button key={s} onClick={() => { setQ(s); interrogate(s); }} style={{ background:'transparent', border:'1px solid var(--tql-line-2)', color:'var(--tql-cool)', padding:'4px 9px', cursor:'pointer', fontFamily:'var(--font-mono)', fontSize:10, transition:'border-color .15s, color .15s' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = accent; e.currentTarget.style.color = accent; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--tql-line-2)'; e.currentTarget.style.color = 'var(--tql-cool)'; }}
+                  >{s}</button>
                 ))}
               </div>
             </div>
+            <style>{`
+              .tql-prompt:hover { border-color: var(--tql-mid-2); background: rgba(198,255,0,0.03); }
+              .tql-prompt:focus-within { border-color: ${accent}; box-shadow: 0 0 0 1px ${accent}; background: rgba(198,255,0,0.05); }
+            `}</style>
 
             {/* output */}
             <div style={{ borderTop:'1px solid var(--tql-line)', padding:'18px 20px 24px', minHeight:200, fontFamily:'var(--font-mono)', fontSize:13, lineHeight:1.7 }}>
               {!out && !loading && <div style={{ color:'var(--tql-mid)' }}>// {lang==='en' ? 'Awaiting input. Type a question and press ↵' : '等待输入。请输入问题并按 ↵'}<span className="caret" /></div>}
               {loading && <div style={{ color:accent }}>{lang==='en'?'parsing assumption tree…':'正在解析假设树…'}<span className="caret" /></div>}
+              {out && out._fallback && (
+                <div style={{ color:'var(--tql-mid)', fontSize:10, letterSpacing:'0.15em', marginBottom:14, paddingBottom:10, borderBottom:'1px solid var(--tql-line)' }}>
+                  // {lang==='en' ? 'BACKEND OFFLINE · showing canned demo response' : '后端离线 · 显示示例响应'}
+                </div>
+              )}
               {out && (
                 <div style={{ display:'flex', flexDirection:'column', gap:14 }}>
                   {streamingLine >= 1 && (

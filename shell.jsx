@@ -87,7 +87,7 @@ function Header({ accent }) {
             <TQLMark size={26} color={accent} />
             <div>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 14, letterSpacing: '-0.01em', lineHeight: 1 }}>THE QUESTION LAB</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9, letterSpacing: '0.18em', color: 'var(--tql-mid)', marginTop: 4 }}>EST. 2024 · BEIJING</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9, letterSpacing: '0.18em', color: 'var(--tql-mid)', marginTop: 4 }}>EST. 2025 · HONG KONG</div>
             </div>
           </div>
         </Link>

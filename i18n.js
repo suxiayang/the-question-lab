@@ -68,11 +68,11 @@ window.I18N = {
     sub_title: 'One question, every other Sunday.',
     sub_body: 'Each issue tracks the current episode: a primary text from the thought-history beat, a counter-text from the contemporary case, and the question we left open. Four minutes to read.',
     sub_email: 'your.address@elsewhere.net', sub_btn: 'SUBSCRIBE',
-    sub_meta: 'No tracking · Unsubscribe with one click · Recorded in Beijing',
+    sub_meta: 'No tracking · Unsubscribe with one click · Recorded in Hong Kong',
 
     footer_episodes: 'Episodes', footer_lab: 'Lab', footer_listen: 'Listen', footer_reach: 'Reach',
     footer_rights: '© 2026 The Question Lab — All questions reserved.',
-    footer_recorded: 'Recorded in Beijing · Released globally · No tracking, ever.',
+    footer_recorded: 'Recorded in Hong Kong · Released globally · No tracking, ever.',
 
     // Episodes archive
     archive_title: 'Episode archive', archive_sub: '48 vodcasts, indexed by season and by question.',
@@ -201,11 +201,11 @@ window.I18N = {
     sub_title: '每两周一题。',
     sub_body: '每期跟随当前一集的脚本：一段思想史里的原典、一个当代真实案例、我们留下的开放问题。四分钟阅读。',
     sub_email: 'your.address@elsewhere.net', sub_btn: '订阅',
-    sub_meta: '不追踪 · 一键退订 · 录制于北京',
+    sub_meta: '不追踪 · 一键退订 · 录制于香港',
 
     footer_episodes: '节目', footer_lab: '实验室', footer_listen: '收听', footer_reach: '联系',
     footer_rights: '© 2026 THE QUESTION LAB · 保留所有问题',
-    footer_recorded: '录制于北京 · 全球发布 · 永不追踪',
+    footer_recorded: '录制于香港 · 全球发布 · 永不追踪',
 
     archive_title: '节目档案库', archive_sub: '48 集 vodcast，按季与议题索引。',
     sort: '排序', filter: '筛选', view: '视图',
