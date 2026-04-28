@@ -73,6 +73,7 @@ function Header({ accent }) {
   };
   const navItems = [
     { path: '/', label: t.nav.home },
+    { path: '/seasons', label: t.nav.seasons },
     { path: '/episodes', label: t.nav.episodes },
     { path: '/index', label: t.nav.index },
     { path: '/manifesto', label: t.nav.manifesto },
@@ -111,7 +112,7 @@ function Header({ accent }) {
         </nav>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <LangToggle accent={accent} />
-          <Link to="/episodes/42" style={{
+          <Link to="/episodes/1" className="btn-lift" style={{
             background: accent, color: '#0B0B0F', padding: '10px 18px', textDecoration: 'none',
             fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.18em', fontWeight: 600,
           }}>{t.cta_latest}</Link>
@@ -159,7 +160,7 @@ function Footer() {
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--tql-mid)', marginTop: 8, letterSpacing: '0.15em' }}>{t.footer_recorded}</div>
           </div>
           {[
-            { title: t.footer_episodes, items: [['→ ' + t.nav.home, '/'], ['→ ' + t.nav.episodes, '/episodes'], ['→ ' + t.nav.index, '/index']] },
+            { title: t.footer_episodes, items: [['→ ' + t.nav.home, '/'], ['→ ' + t.nav.seasons, '/seasons'], ['→ ' + t.nav.episodes, '/episodes'], ['→ ' + t.nav.index, '/index']] },
             { title: t.footer_lab, items: [['→ ' + t.nav.manifesto, '/manifesto'], ['→ ' + t.nav.subscribe, '/subscribe']] },
             { title: t.footer_listen, items: [['→ Spotify', '/'], ['→ Apple Podcasts', '/'], ['→ YouTube', '/']] },
             { title: t.footer_reach, items: [['→ ask@questionlab.fm', '/'], ['→ Press', '/'], ['→ RSS', '/']] },
@@ -174,7 +175,7 @@ function Footer() {
         </div>
         <div style={{ borderTop: '1px solid var(--tql-line)', paddingTop: 24, display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--tql-mid-2)', letterSpacing: '0.15em' }}>
           <span>{t.footer_rights}</span>
-          <span>v2.4.1 · {lang === 'en' ? 'BUILT WITH FRICTION' : '以摩擦力建造'}</span>
+          <span>PROGRAM v1.0 · {lang === 'en' ? '4 SEASONS · 48 EPISODES · 2026 — 2028' : '四季 · 48 集 · 2026 — 2028'}</span>
         </div>
       </div>
     </footer>

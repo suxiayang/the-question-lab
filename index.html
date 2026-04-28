@@ -48,6 +48,7 @@
       if (parts.length === 0) return <HomePage accent={accent} />;
       if (parts[0] === 'episodes' && !parts[1]) return <EpisodesPage accent={accent} />;
       if (parts[0] === 'episodes' && parts[1]) return <EpisodeDetailPage id={parts[1]} accent={accent} />;
+      if (parts[0] === 'seasons') return <SeasonsPage accent={accent} />;
       if (parts[0] === 'index') return <IndexPage slug={parts[1]} accent={accent} />;
       if (parts[0] === 'manifesto') return <ManifestoPage accent={accent} />;
       if (parts[0] === 'subscribe') return <SubscribePage accent={accent} />;

@@ -3,23 +3,25 @@
 function HomePage({ accent }) {
   const { lang } = useI18N();
   const marqueeItems = lang === 'en' ? [
-    'TRANSMISSION 042 LIVE',
-    'WHAT DOES IT MEAN TO THINK?',
+    'PROGRAM v1 · 4 SEASONS · 48 EPISODES · 2026 — 2028',
+    'CAN A MACHINE THINK?',
     'WHO IS RESPONSIBLE WHEN NO ONE DECIDED?',
+    'WHAT IS LEFT OF BEING HUMAN?',
     'WE DO NOT PROVIDE ANSWERS',
-    'WE RE-POSE THE QUESTION',
-    'BEIJING · WEEKLY · SUNDAY',
-    'IS FREEDOM COMPUTABLE?',
-    'NO TRACKERS · NO ADS',
+    'WE PUT THE QUESTION BACK ON THE TABLE',
+    'IS SUPERINTELLIGENCE A REAL THREAT?',
+    'BEIJING · BIWEEKLY · SUNDAY',
+    'NO TRACKERS · NO ADS · NO ANSWERS',
   ] : [
-    '第 042 期 信号在线',
-    '什么叫做"思考"？',
+    'V1 节目 · 4 季 · 48 集 · 2026 — 2028',
+    '机器会思考吗？',
     '当没有人决定，谁来承担？',
+    '人之为人，到底是什么？',
     '我们不提供答案',
-    '我们重提问题',
-    '北京 · 每周 · 周日',
-    '自由可以被计算吗？',
-    '无追踪 · 无广告',
+    '我们把问题摆回桌面',
+    '超级智能是真实威胁吗？',
+    '北京 · 每两周 · 周日',
+    '无追踪 · 无广告 · 无答案',
   ];
   return (
     <main>
@@ -27,6 +29,7 @@ function HomePage({ accent }) {
       <MarqueeBand items={marqueeItems} accent={accent} />
       <Reveal as="div"><TelemetryStrip accent={accent} /></Reveal>
       <Reveal as="div"><PrimaryReadout accent={accent} /></Reveal>
+      <Reveal as="div"><SeasonArc accent={accent} /></Reveal>
       <Reveal as="div"><RecentLog accent={accent} /></Reveal>
       <Reveal as="div"><TerritoryGrid accent={accent} /></Reveal>
       <Reveal as="div"><InterrogationConsole accent={accent} /></Reveal>
@@ -40,33 +43,35 @@ function HomePage({ accent }) {
 function ConsoleHero({ accent }) {
   const { t, lang } = useI18N();
   const lines = lang === 'en' ? [
-    { tag: 'BOOT', text: 'TQL.console v2.4.1 — initialising…', delay: 0 },
-    { tag: 'AUTH', text: 'observer authenticated · session 0xA42F', delay: 250 },
-    { tag: 'LOAD', text: 'loading 42 episodes from /archive/…', delay: 500 },
-    { tag: 'IDX',  text: 'question_index built · 8 territories', delay: 750 },
+    { tag: 'BOOT', text: 'TQL.console v1.0 — initialising program…', delay: 0 },
+    { tag: 'PRGM', text: 'program loaded · 4 seasons · 48 episodes · 2026 – 2028', delay: 250 },
+    { tag: 'IDX',  text: 'question_index built · 9 territories of inquiry', delay: 500 },
+    { tag: 'CURS', text: 'season 01 · HUMAN · in production', delay: 750 },
     { tag: 'OK',   text: 'lab open. Awaiting inquiry.', delay: 1000 },
   ] : [
-    { tag: 'BOOT', text: 'TQL.console v2.4.1 — 启动中…', delay: 0 },
-    { tag: 'AUTH', text: '观察者身份已确认 · 会话 0xA42F', delay: 250 },
-    { tag: 'LOAD', text: '加载 42 集存档…', delay: 500 },
-    { tag: 'IDX',  text: '问题索引已构建 · 八个疆域', delay: 750 },
+    { tag: 'BOOT', text: 'TQL.console v1.0 — 节目启动中…', delay: 0 },
+    { tag: 'PRGM', text: '节目加载 · 4 季 · 48 集 · 2026 – 2028', delay: 250 },
+    { tag: 'IDX',  text: '问题索引已构建 · 九个疆域', delay: 500 },
+    { tag: 'CURS', text: '第一季 · 人 · 制作中', delay: 750 },
     { tag: 'OK',   text: '实验室已开放，等待提问。', delay: 1000 },
   ];
 
   const questions = lang === 'en' ? [
-    'What does it mean to think?',
-    'Where does the self end and the model begin?',
-    'Whose words are these, exactly?',
-    'Is freedom computable?',
-    'Can a machine lie?',
-    'Who is responsible when no one decided?',
+    'Can a machine think?',
+    'Does an AI understand what it does?',
+    'You are not the fish — how do you know its joy?',
+    'Is your choice really yours?',
+    'Whose orders should an AI obey?',
+    'Is superintelligence a real threat?',
+    'How will we be remembered?',
   ] : [
-    '什么叫做"思考"？',
-    '"我"在哪里结束，模型从哪里开始？',
-    '这些词，到底是谁的？',
-    '自由可以被计算吗？',
-    '机器能撒谎吗？',
-    '当没有人决定，谁来承担？',
+    '机器会思考吗？',
+    'AI 真的理解它在做的事吗？',
+    '子非鱼，焉知鱼之乐？',
+    '你的选择是真的吗？',
+    'AI 应该听谁的？',
+    '超级智能是真实威胁吗？',
+    '我们将如何被记住？',
   ];
 
   const [idx, setIdx] = React.useState(0);
@@ -124,7 +129,7 @@ function ConsoleHero({ accent }) {
             </div>
 
             <div style={{ display:'flex', gap:14, flexWrap:'wrap' }}>
-              <Link to="/episodes/42" className="btn-lift" style={{
+              <Link to="/episodes/1" className="btn-lift" style={{
                 padding:'18px 26px', background:accent, color:'#0B0B0F', textDecoration:'none',
                 fontFamily:'var(--font-mono)', fontSize:12, letterSpacing:'0.18em', fontWeight:600,
                 display:'inline-flex', alignItems:'center', gap:10,
@@ -188,21 +193,21 @@ function TelemetryStrip({ accent }) {
   const { lang } = useI18N();
   /* Each item: [label, render-fn]. Render-fn lets us drop in animated <CountUp> nodes for numeric cells. */
   const items = lang === 'en' ? [
-    ['ARCHIVE',     () => <><CountUp value={42} duration={900} /> EP</>],
-    ['TERRITORIES', () => <CountUp value={8} duration={700} format={(n) => String(n).padStart(2, '0')} />],
-    ['SEASON',      () => 'S03 / 2026'],
-    ['CADENCE',     () => 'WEEKLY · SUN'],
-    ['READERS',     () => <CountUp value={12407} duration={1400} />],
-    ['TRACKING',    () => 'NONE'],
+    ['PROGRAM',     () => <><CountUp value={48} duration={900} /> EP</>],
+    ['SEASONS',     () => <CountUp value={4} duration={500} format={(n) => String(n).padStart(2, '0')} />],
+    ['THEMES',      () => <CountUp value={9} duration={700} format={(n) => String(n).padStart(2, '0')} />],
+    ['ACTIVE',      () => 'S01 · 2026'],
+    ['SCOPE',       () => '2026 – 2028'],
+    ['CADENCE',     () => 'BIWEEKLY · SUN'],
     ['LANG',        () => 'EN / 中文'],
   ] : [
-    ['存档',     () => <><CountUp value={42} duration={900} /> 集</>],
-    ['议题疆域', () => <CountUp value={8} duration={700} format={(n) => String(n).padStart(2, '0')} />],
-    ['季度',     () => 'S03 / 2026'],
-    ['频率',     () => '每周日'],
-    ['读者',     () => <CountUp value={12407} duration={1400} />],
-    ['追踪',     () => '无'],
-    ['语言',     () => 'EN / 中文'],
+    ['节目',       () => <><CountUp value={48} duration={900} /> 集</>],
+    ['季',         () => <CountUp value={4} duration={500} format={(n) => String(n).padStart(2, '0')} />],
+    ['议题',       () => <CountUp value={9} duration={700} format={(n) => String(n).padStart(2, '0')} />],
+    ['当前',       () => '第一季 · 2026'],
+    ['周期',       () => '2026 – 2028'],
+    ['频率',       () => '每两周日'],
+    ['语言',       () => 'EN / 中文'],
   ];
   return (
     <section style={{ borderBottom:'1px solid var(--tql-line)', background:'#08080B', position:'relative', overflow:'hidden' }}>
@@ -222,11 +227,11 @@ function TelemetryStrip({ accent }) {
 /* ---------- Primary readout (latest + featured) ---------- */
 function PrimaryReadout({ accent }) {
   const { t, lang } = useI18N();
-  const latest = window.EPS_DATA.find(e => e.ep === 42);
-  const featured = window.EPS_DATA.find(e => e.ep === 40);
+  const latest = window.EPS_DATA.find(e => e.ep === 1);
+  const featured = window.EPS_DATA.find(e => e.ep === 3);
   if (!latest || !featured) return null;
   const fmt = (e) => ({
-    title: e[lang].t1, accent: e[lang].t2, theme: lang==='en'?e.theme_en:e.theme_zh, dur: e.dur, ep: e.ep, tpl: e.tpl,
+    title: e[lang].t1, accent: e[lang].t2, theme: lang==='en'?e.theme_en:e.theme_zh, dur: e.dur, ep: e.ep, tpl: e.tpl, season: e.season,
   });
   const L = fmt(latest), F = fmt(featured);
 
@@ -236,8 +241,8 @@ function PrimaryReadout({ accent }) {
         <SectionHead num="04" label={lang==='en' ? 'PRIMARY READOUT' : '主信号读出'} accent={accent} />
         <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:0, borderTop:'1px solid var(--tql-line)' }}>
           {[
-            { e: L, tag: t.new_this_week, status: 'LIVE' },
-            { e: F, tag: t.featured, status: 'PINNED' },
+            { e: L, tag: lang==='en' ? 'EPISODE 001 · OPENING' : '第 001 集 · 开篇', status: 'LIVE', src: latest },
+            { e: F, tag: lang==='en' ? 'EPISODE 003 · CONSCIOUSNESS' : '第 003 集 · 意识', status: 'PINNED', src: featured },
           ].map((row, i) => (
             <Link key={i} to={`/episodes/${row.e.ep}`} style={{ textDecoration:'none', color:'inherit', padding:'40px 40px 40px 0', paddingLeft: i===1 ? 40 : 0, borderRight: i===0 ? '1px solid var(--tql-line)' : 'none' }}>
               <div style={{ display:'flex', justifyContent:'space-between', fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'0.2em', color:'var(--tql-mid)', marginBottom:18 }}>
@@ -246,14 +251,14 @@ function PrimaryReadout({ accent }) {
               </div>
               <div style={{ position:'relative', width:'100%', aspectRatio:'10/7', overflow:'hidden', border:'1px solid var(--tql-line)' }}>
                 <div style={{ position:'absolute', inset:0 }}>
-                  <EpisodeCardLocalized ep={row.e.ep === L.ep ? latest : featured} size="lg" />
+                  <EpisodeCardLocalized ep={row.src} size="lg" />
                 </div>
                 {/* console overlay corners */}
                 <Corners color={accent} />
               </div>
               <div style={{ marginTop:18, display:'grid', gridTemplateColumns:'1fr auto', gap:24, alignItems:'baseline' }}>
                 <div style={{ fontFamily:'var(--font-mono)', fontSize:11, letterSpacing:'0.16em', color:'var(--tql-mid)' }}>
-                  EP.{String(row.e.ep).padStart(2,'0')} · {row.e.theme.toUpperCase()} · {row.e.dur}{t.min.toUpperCase()}
+                  {row.e.season} · EP.{String(row.e.ep).padStart(3,'0')} · {row.e.theme.toUpperCase()} · {row.e.dur}{t.min.toUpperCase()}
                 </div>
                 <span style={{ fontFamily:'var(--font-mono)', fontSize:11, color:accent, letterSpacing:'0.18em' }}>OPEN <span className="arrow-shift">↗</span></span>
               </div>
@@ -291,23 +296,62 @@ function SectionHead({ num, label, accent, right }) {
   );
 }
 
-/* ---------- Recent log (table) ---------- */
+/* ---------- Season arc (the four-season program map) ---------- */
+function SeasonArc({ accent }) {
+  const { t, lang } = useI18N();
+  const seasons = window.SEASONS;
+  return (
+    <section style={{ borderBottom:'1px solid var(--tql-line)' }}>
+      <div style={{ maxWidth:1440, margin:'0 auto', padding:'0 56px' }}>
+        <SectionHead num="05" label={lang==='en' ? 'PROGRAM ARC' : '节目弧'} accent={accent}
+          right={<Link to="/seasons" className="link-line" style={{ fontFamily:'var(--font-mono)', fontSize:11, letterSpacing:'0.18em', color:'var(--tql-cool)', textDecoration:'none' }}>{lang==='en'?'OPEN PROGRAM MAP →':'打开节目地图 →'}</Link>}
+        />
+        <div style={{ marginBottom:32, maxWidth:880 }}>
+          <h2 className="tql-h2" style={{ fontSize:'clamp(36px, 4.4vw, 64px)', margin:'0 0 16px' }}>{t.seasons_title}</h2>
+          <div style={{ color:'var(--tql-mid)', fontSize:15, lineHeight:1.6, fontFamily: lang==='zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{t.seasons_sub}</div>
+        </div>
+        <SpotlightGrid style={{ display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:1, background:'var(--tql-line)', border:'1px solid var(--tql-line)', marginBottom:48 }}>
+          {seasons.map((s, i) => (
+            <Link key={s.id} to={`/seasons#${s.id.toLowerCase()}`} style={{ textDecoration:'none', color:'inherit' }}>
+              <div className="terr-cell" style={{ background:'#0B0B0F', padding:'28px 24px 24px', minHeight:280, position:'relative', display:'flex', flexDirection:'column' }}>
+                <div style={{ display:'flex', justifyContent:'space-between', fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'0.2em', color:'var(--tql-mid)', marginBottom:18 }}>
+                  <span style={{ color:accent }}>{s.id}</span>
+                  <span>{s.span}</span>
+                </div>
+                <div style={{ fontFamily:'var(--font-mono)', fontSize:11, letterSpacing:'0.3em', color:accent, marginBottom:10 }}>{lang==='en'?s.name_en:s.name_zh}</div>
+                <div style={{ fontFamily:'var(--font-display)', fontWeight:700, fontSize:28, letterSpacing:'-0.02em', lineHeight:1.1, marginBottom:14 }}>{lang==='en'?s.title_en:s.title_zh}</div>
+                <div style={{ color:'var(--tql-cool)', fontSize:13, lineHeight:1.5, marginBottom:'auto', maxWidth:'100%', fontFamily: lang==='zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{lang==='en'?s.tagline_en:s.tagline_zh}</div>
+                <div style={{ marginTop:18, paddingTop:14, borderTop:'1px solid var(--tql-line)', display:'flex', justifyContent:'space-between', fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'0.18em', color:'var(--tql-mid)' }}>
+                  <span>{lang==='en'?s.lens_en:s.lens_zh}</span>
+                  <span>{s.range[1]-s.range[0]+1} {lang==='en'?'EP':'集'}</span>
+                </div>
+                <div className="arrow-shift" style={{ position:'absolute', bottom:18, right:20, color:accent, fontFamily:'var(--font-mono)', fontSize:12 }}>↗</div>
+              </div>
+            </Link>
+          ))}
+        </SpotlightGrid>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Recent log (table) — first 7 of season 1 ---------- */
 function RecentLog({ accent }) {
   const { t, lang } = useI18N();
-  const eps = window.EPS_DATA.filter(e => e.ep !== 42 && e.ep !== 40).slice(-7).reverse();
+  const eps = window.EPS_DATA.filter(e => e.season === 'S01' && e.ep !== 1 && e.ep !== 3).slice(0, 7);
   return (
     <section style={{ borderBottom:'1px solid var(--tql-line)', background:'#08080B' }}>
       <div style={{ maxWidth:1440, margin:'0 auto', padding:'0 56px' }}>
-        <SectionHead num="05" label={lang==='en' ? 'TRANSMISSION LOG' : '信号日志'} accent={accent}
+        <SectionHead num="06" label={lang==='en' ? 'SEASON 01 · TRANSMISSION LOG' : '第一季 · 信号日志'} accent={accent}
           right={<Link to="/episodes" style={{ fontFamily:'var(--font-mono)', fontSize:11, letterSpacing:'0.18em', color:'var(--tql-cool)', textDecoration:'none' }}>{t.view_all.toUpperCase()} →</Link>}
         />
         <div style={{ borderTop:'1px solid var(--tql-line)', borderBottom:'1px solid var(--tql-line)' }}>
-          <div style={{ display:'grid', gridTemplateColumns:'90px 160px 1fr 100px 90px', gap:24, padding:'12px 0', fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'0.2em', color:'var(--tql-mid)', borderBottom:'1px solid var(--tql-line)' }}>
+          <div style={{ display:'grid', gridTemplateColumns:'100px 160px 1fr 100px 90px', gap:24, padding:'12px 0', fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'0.2em', color:'var(--tql-mid)', borderBottom:'1px solid var(--tql-line)' }}>
             <span>{t.col_ep}</span><span>{t.col_frame}</span><span>{t.col_question}</span><span>{t.col_duration}</span><span style={{ textAlign:'right' }}>OPEN</span>
           </div>
           {eps.map((e) => (
-            <Link key={e.ep} to={`/episodes/${e.ep}`} className="log-row" style={{ display:'grid', gridTemplateColumns:'90px 160px 1fr 100px 90px', gap:24, padding:'18px 0', borderBottom:'1px solid var(--tql-line)', textDecoration:'none', color:'inherit', alignItems:'baseline' }}>
-              <span style={{ fontFamily:'var(--font-mono)', fontSize:13, color:accent, letterSpacing:'0.1em' }}>EP.{String(e.ep).padStart(2,'0')}</span>
+            <Link key={e.ep} to={`/episodes/${e.ep}`} className="log-row" style={{ display:'grid', gridTemplateColumns:'100px 160px 1fr 100px 90px', gap:24, padding:'18px 0', borderBottom:'1px solid var(--tql-line)', textDecoration:'none', color:'inherit', alignItems:'baseline' }}>
+              <span style={{ fontFamily:'var(--font-mono)', fontSize:13, color:accent, letterSpacing:'0.1em' }}>#{String(e.ep).padStart(3,'0')}</span>
               <span style={{ fontFamily:'var(--font-mono)', fontSize:11, letterSpacing:'0.16em', color:'var(--tql-mid)' }}>{(lang==='en'?e.theme_en:e.theme_zh).toUpperCase()}</span>
               <span style={{ fontFamily:'var(--font-display)', fontSize:18, fontWeight:500, lineHeight:1.3 }}>
                 {e[lang].t1} <span style={{ color:'var(--tql-mid)' }}>{e[lang].t2}</span>
@@ -329,25 +373,29 @@ function TerritoryGrid({ accent }) {
   return (
     <section style={{ borderBottom:'1px solid var(--tql-line)' }}>
       <div style={{ maxWidth:1440, margin:'0 auto', padding:'0 56px' }}>
-        <SectionHead num="06" label={lang==='en' ? 'INSTRUMENT INDEX' : '议题索引' } accent={accent} />
-        <div style={{ marginBottom:32, maxWidth:760 }}>
+        <SectionHead num="07" label={lang==='en' ? 'INSTRUMENT INDEX · 9 TERRITORIES' : '议题索引 · 九个疆域' } accent={accent} />
+        <div style={{ marginBottom:32, maxWidth:880 }}>
           <h2 className="tql-h2" style={{ fontSize:'clamp(36px, 4.4vw, 64px)', margin:'0 0 16px' }}>{t.index_title}</h2>
-          <div style={{ color:'var(--tql-mid)', fontSize:15, lineHeight:1.55, fontFamily: lang==='zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{t.index_sub}</div>
+          <div style={{ color:'var(--tql-mid)', fontSize:15, lineHeight:1.6, fontFamily: lang==='zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{t.index_sub}</div>
         </div>
-        <SpotlightGrid style={{ display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:1, background:'var(--tql-line)', border:'1px solid var(--tql-line)', marginBottom:48 }}>
-          {window.THEMES.map((th, i) => (
-            <Link key={i} to={`/index/${(lang==='en'?th.en:th.zh).toLowerCase().replace(/\s+/g,'-')}`} style={{ textDecoration:'none', color:'inherit' }}>
-              <div className="terr-cell" style={{ background:'#0B0B0F', padding:'24px 24px 22px', minHeight:200, position:'relative' }}>
-                <div style={{ display:'flex', justifyContent:'space-between', fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'0.18em', color:'var(--tql-mid)', marginBottom:18 }}>
-                  <span>§ {String(i+1).padStart(2,'0')}</span>
-                  <span>{th.count} {t.eps.toUpperCase()}</span>
+        <SpotlightGrid style={{ display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:1, background:'var(--tql-line)', border:'1px solid var(--tql-line)', marginBottom:48 }}>
+          {window.THEMES.map((th, i) => {
+            const slug = th.en.toLowerCase().replace(/\s+/g,'-');
+            const epCount = window.EPS_DATA.filter(e => e.theme_en === th.en).length;
+            return (
+              <Link key={i} to={`/index/${slug}`} style={{ textDecoration:'none', color:'inherit' }}>
+                <div className="terr-cell" style={{ background:'#0B0B0F', padding:'26px 24px 24px', minHeight:220, position:'relative' }}>
+                  <div style={{ display:'flex', justifyContent:'space-between', fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'0.18em', color:'var(--tql-mid)', marginBottom:18 }}>
+                    <span style={{ color:accent }}>§ {String(i+1).padStart(2,'0')} / 09</span>
+                    <span>{epCount} {t.eps.toUpperCase()}</span>
+                  </div>
+                  <div style={{ fontFamily:'var(--font-display)', fontWeight:700, fontSize:26, letterSpacing:'-0.02em', marginBottom:14, lineHeight:1.05 }}>{lang==='en'?th.en:th.zh}</div>
+                  <div style={{ color:'var(--tql-mid)', fontSize:13, lineHeight:1.5, fontFamily: lang==='zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{lang==='en'?th.q_en:th.q_zh}</div>
+                  <div className="arrow-shift" style={{ position:'absolute', bottom:18, right:20, color:accent, fontFamily:'var(--font-mono)', fontSize:12 }}>↗</div>
                 </div>
-                <div style={{ fontFamily:'var(--font-display)', fontWeight:700, fontSize:24, letterSpacing:'-0.02em', marginBottom:14 }}>{lang==='en'?th.en:th.zh}</div>
-                <div style={{ color:'var(--tql-mid)', fontSize:13, lineHeight:1.45, fontFamily: lang==='zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{lang==='en'?th.q_en:th.q_zh}</div>
-                <div className="arrow-shift" style={{ position:'absolute', bottom:18, right:20, color:accent, fontFamily:'var(--font-mono)', fontSize:12 }}>↗</div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </SpotlightGrid>
       </div>
       <style>{`.terr-cell { transition: background .25s; } .terr-cell:hover { background: #101015 !important; }`}</style>
@@ -404,7 +452,7 @@ function InterrogationConsole({ accent }) {
   return (
     <section style={{ borderBottom:'1px solid var(--tql-line)', background:'#08080B' }} className="bg-grid-fine">
       <div style={{ maxWidth:1440, margin:'0 auto', padding:'0 56px' }}>
-        <SectionHead num="07" label={lang==='en' ? 'INTERROGATION ENGINE' : '提问审讯引擎'} accent={accent} />
+        <SectionHead num="08" label={lang==='en' ? 'INTERROGATION ENGINE' : '提问审讯引擎'} accent={accent} />
         <div style={{ display:'grid', gridTemplateColumns:'1fr 1.2fr', gap:48, padding:'12px 0 80px', borderTop:'1px solid var(--tql-line)' }}>
           {/* LEFT */}
           <div style={{ paddingTop:32 }}>
@@ -494,7 +542,7 @@ function ManifestoCard({ accent }) {
   return (
     <section style={{ borderBottom:'1px solid var(--tql-line)' }}>
       <div style={{ maxWidth:1440, margin:'0 auto', padding:'0 56px' }}>
-        <SectionHead num="08" label={lang==='en' ? 'OPERATING DOCTRINE' : '操作原则'} accent={accent} />
+        <SectionHead num="09" label={lang==='en' ? 'OPERATING DOCTRINE' : '操作原则'} accent={accent} />
         <div style={{ display:'grid', gridTemplateColumns:'200px 1fr', gap:48, padding:'40px 0 80px', borderTop:'1px solid var(--tql-line)' }}>
           <div>
             <div style={{ fontFamily:'var(--font-mono)', fontSize:11, letterSpacing:'0.2em', color:'var(--tql-mid)', marginBottom:8 }}>{t.manifesto_eyebrow}</div>
@@ -521,7 +569,7 @@ function SubscribePanel({ accent }) {
   return (
     <section style={{ borderBottom:'1px solid var(--tql-line)', background:'#08080B' }}>
       <div style={{ maxWidth:1440, margin:'0 auto', padding:'0 56px' }}>
-        <SectionHead num="09" label={lang==='en' ? 'CHANNEL · SUBSCRIBE' : '频道 · 订阅'} accent={accent} />
+        <SectionHead num="10" label={lang==='en' ? 'CHANNEL · SUBSCRIBE' : '频道 · 订阅'} accent={accent} />
         <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:64, padding:'40px 0 80px', alignItems:'start', borderTop:'1px solid var(--tql-line)' }}>
           <div>
             <h2 className="tql-h2" style={{ fontSize:'clamp(40px, 4.8vw, 72px)', margin:'0 0 18px', lineHeight:1.0 }}>{t.sub_title}</h2>
