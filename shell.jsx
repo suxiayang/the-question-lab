@@ -181,4 +181,98 @@ function Footer() {
   );
 }
 
-Object.assign(window, { LangCtx, LangProvider, useI18N, useRoute, navigate, Link, Header, Footer, LangToggle });
+/* ---------- Motion primitives ---------- */
+
+/* Reveal-on-scroll wrapper. Children fade + slide + de-blur once visible. */
+function Reveal({ children, as: Tag = 'div', stagger = false, threshold = 0.12, delay = 0, style, className, ...rest }) {
+  const ref = React.useRef(null);
+  const [shown, setShown] = React.useState(false);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === 'undefined') { setShown(true); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          setShown(true);
+          io.disconnect();
+        }
+      });
+    }, { threshold, rootMargin: '0px 0px -8% 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [threshold]);
+  const cls = ['reveal', shown ? 'is-in' : '', className].filter(Boolean).join(' ');
+  const dataAttr = stagger ? { 'data-stagger': '' } : {};
+  const finalStyle = delay ? { ...style, animationDelay: `${delay}ms` } : style;
+  return (
+    <Tag ref={ref} className={cls} style={finalStyle} {...dataAttr} {...rest}>
+      {children}
+    </Tag>
+  );
+}
+
+/* Count-up number that animates from 0 -> target on first reveal. Preserves formatting. */
+function CountUp({ value, duration = 1200, format = (n) => n.toLocaleString(), className, style }) {
+  const ref = React.useRef(null);
+  const [n, setN] = React.useState(0);
+  const startedRef = React.useRef(false);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const start = () => {
+      if (startedRef.current) return;
+      startedRef.current = true;
+      const t0 = performance.now();
+      const step = (now) => {
+        const k = Math.min(1, (now - t0) / duration);
+        const eased = 1 - Math.pow(1 - k, 3);
+        setN(Math.round(value * eased));
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    if (typeof IntersectionObserver === 'undefined') { start(); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { start(); io.disconnect(); } });
+    }, { threshold: 0.4 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [value, duration]);
+  return <span ref={ref} className={['count-up', className].filter(Boolean).join(' ')} style={style}>{format(n)}</span>;
+}
+
+/* MarqueeBand — infinite-scrolling band of items with accent dots between them. */
+function MarqueeBand({ items, accent }) {
+  const repeated = [...items, ...items, ...items, ...items];
+  return (
+    <div className="marquee-band" aria-hidden="true">
+      <div className="marquee-band-track">
+        {repeated.map((it, i) => (
+          <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 14 }}>
+            <span style={{ color: accent || 'var(--tql-accent)' }}>◆</span>
+            <span className="item">{it}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* SpotlightGrid — wraps a grid, tracks cursor and exposes --mx/--my for the radial highlight. */
+function SpotlightGrid({ children, style, className, ...rest }) {
+  const ref = React.useRef(null);
+  const onMove = (e) => {
+    const el = ref.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    el.style.setProperty('--my', `${e.clientY - r.top}px`);
+  };
+  return (
+    <div ref={ref} onMouseMove={onMove} className={['spotlight-grid', className].filter(Boolean).join(' ')} style={style} {...rest}>
+      {children}
+    </div>
+  );
+}
+
+Object.assign(window, { LangCtx, LangProvider, useI18N, useRoute, navigate, Link, Header, Footer, LangToggle, Reveal, CountUp, MarqueeBand, SpotlightGrid });

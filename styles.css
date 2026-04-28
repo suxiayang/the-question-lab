@@ -183,3 +183,144 @@
 
 /* Terminal cursor block */
 .term-cursor { display: inline-block; width: 10px; height: 22px; background: var(--tql-accent); margin-left: 4px; vertical-align: middle; animation: blink 1s steps(1) infinite; }
+
+/* ---------- Scroll reveal ---------- */
+@keyframes reveal-up {
+  0%   { opacity: 0; transform: translateY(28px); filter: blur(8px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(8px);
+  will-change: opacity, transform, filter;
+}
+.reveal.is-in {
+  animation: reveal-up 900ms cubic-bezier(.2,.7,.2,1) forwards;
+}
+
+/* Stagger helper — child indexes get progressively delayed */
+.reveal[data-stagger] > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.reveal.is-in[data-stagger] > * {
+  animation: reveal-up 700ms cubic-bezier(.2,.7,.2,1) forwards;
+}
+.reveal.is-in[data-stagger] > *:nth-child(1) { animation-delay: 60ms; }
+.reveal.is-in[data-stagger] > *:nth-child(2) { animation-delay: 130ms; }
+.reveal.is-in[data-stagger] > *:nth-child(3) { animation-delay: 200ms; }
+.reveal.is-in[data-stagger] > *:nth-child(4) { animation-delay: 270ms; }
+.reveal.is-in[data-stagger] > *:nth-child(5) { animation-delay: 340ms; }
+.reveal.is-in[data-stagger] > *:nth-child(6) { animation-delay: 410ms; }
+.reveal.is-in[data-stagger] > *:nth-child(7) { animation-delay: 480ms; }
+.reveal.is-in[data-stagger] > *:nth-child(8) { animation-delay: 550ms; }
+.reveal.is-in[data-stagger] > *:nth-child(n+9) { animation-delay: 620ms; }
+
+/* ---------- CRT scan line over hero ---------- */
+@keyframes scan-line {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(2400%); }
+}
+.scan-line {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 2px;
+  background: linear-gradient(to bottom, transparent, var(--tql-accent), transparent);
+  opacity: 0.55;
+  filter: blur(1px);
+  pointer-events: none;
+  animation: scan-line 7.5s linear infinite;
+  mix-blend-mode: screen;
+}
+
+/* ---------- Spotlight (cursor follow) on grids ---------- */
+.spotlight-grid { position: relative; isolation: isolate; }
+.spotlight-grid::after {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(198,255,0,0.16), transparent 60%);
+  opacity: 0;
+  transition: opacity .3s;
+  z-index: 5;
+  mix-blend-mode: screen;
+}
+.spotlight-grid:hover::after { opacity: 1; }
+.spotlight-grid > * { position: relative; }
+
+/* ---------- Marquee band ---------- */
+.marquee-band {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--tql-line);
+  border-bottom: 1px solid var(--tql-line);
+  background: #08080B;
+}
+.marquee-band-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 56px;
+  padding: 14px 0;
+  white-space: nowrap;
+  animation: marquee 48s linear infinite;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--tql-mid);
+}
+.marquee-band-track:hover { animation-play-state: paused; }
+.marquee-band-track .dot { color: var(--tql-accent); margin: 0 4px; }
+.marquee-band-track .item { color: #EDEDED; }
+
+/* ---------- Magnetic / lift hover for primary CTAs ---------- */
+.btn-lift { transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s; will-change: transform; }
+.btn-lift:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -16px rgba(198,255,0,0.35); }
+
+/* ---------- Animated arrow on links ---------- */
+.arrow-shift { display: inline-block; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+a:hover .arrow-shift, button:hover .arrow-shift { transform: translateX(4px); }
+
+/* ---------- Number / count tick ---------- */
+@keyframes tick-flash {
+  0%, 100% { color: inherit; }
+  50% { color: var(--tql-accent); }
+}
+.count-up { font-variant-numeric: tabular-nums; }
+
+/* ---------- Card border gradient sweep ---------- */
+@keyframes sweep {
+  0%   { transform: translateX(-100%); }
+  60%  { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
+}
+.sweep-line {
+  position: absolute;
+  top: 0; left: 0; height: 1px;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--tql-accent), transparent);
+  pointer-events: none;
+  animation: sweep 4.5s ease-in-out infinite;
+  opacity: 0.55;
+}
+
+/* ---------- Slow Ken-Burns drift on hero cover ---------- */
+@keyframes ken-burns {
+  0%   { transform: scale(2.2) translate(0, 0); }
+  50%  { transform: scale(2.35) translate(-1.5%, -1%); }
+  100% { transform: scale(2.2) translate(0, 0); }
+}
+.ken-burns { animation: ken-burns 22s ease-in-out infinite; }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.is-in, .reveal.is-in[data-stagger] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+  }
+  .scan-line, .marquee-band-track, .sweep-line, .pulse, .glitch::before, .glitch::after, .ken-burns {
+    animation: none !important;
+  }
+}

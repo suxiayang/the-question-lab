@@ -34,13 +34,13 @@ function EpisodesPage({ accent }) {
 
       <section style={{ padding: view === 'table' ? '0' : '48px 56px' }}>
         {view === 'table' ? (
-          <EpsTable eps={eps} accent={accent} />
+          <Reveal><EpsTable eps={eps} accent={accent} /></Reveal>
         ) : (
-          <div style={{ maxWidth: 1440, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+          <Reveal stagger style={{ maxWidth: 1440, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
             {eps.map(ep => (
-              <Link key={ep.ep} to={`/episodes/${ep.ep}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <div style={{ width: '100%', aspectRatio: '10/7', position: 'relative' }}>
-                  <div style={{ position: 'absolute', inset: 0 }}>
+              <Link key={ep.ep} to={`/episodes/${ep.ep}`} className="ep-card" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div style={{ width: '100%', aspectRatio: '10/7', position: 'relative', overflow:'hidden' }}>
+                  <div className="ep-img" style={{ position: 'absolute', inset: 0 }}>
                     <EpisodeCardLocalized ep={ep} size="md" />
                   </div>
                 </div>
@@ -50,7 +50,7 @@ function EpisodesPage({ accent }) {
                 </div>
               </Link>
             ))}
-          </div>
+          </Reveal>
         )}
       </section>
     </main>
@@ -136,7 +136,7 @@ function EpisodeDetailPage({ id, accent }) {
     <main>
       <section style={{ borderBottom: '1px solid var(--tql-line)' }}>
         <div style={{ position: 'relative', height: '70vh', minHeight: 540, overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', inset: 0, transform: 'scale(2.2)', transformOrigin: 'center' }}>
+          <div className="ken-burns" style={{ position: 'absolute', inset: 0, transformOrigin: 'center' }}>
             <EpisodeCardLocalized ep={ep} size="xl" />
           </div>
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 0%, rgba(11,11,15,0.4) 50%, #0B0B0F 100%)' }} />
@@ -185,9 +185,9 @@ function EpisodeDetailPage({ id, accent }) {
               ))}
             </ol>
             <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <button style={{ padding: '14px 18px', background: accent, color: '#0B0B0F', border: 'none', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.18em', fontWeight: 600, cursor: 'pointer' }}>{lang === 'en' ? '▶ PLAY EPISODE' : '▶ 播放本期'}</button>
-              <button style={{ padding: '14px 18px', background: 'transparent', color: 'var(--tql-cool)', border: '1px solid var(--tql-line-2)', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.18em', cursor: 'pointer' }}>{t.transcript} ↗</button>
-              <button style={{ padding: '14px 18px', background: 'transparent', color: 'var(--tql-cool)', border: '1px solid var(--tql-line-2)', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.18em', cursor: 'pointer' }}>{t.notes} ↗</button>
+              <button className="btn-lift" style={{ padding: '14px 18px', background: accent, color: '#0B0B0F', border: 'none', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.18em', fontWeight: 600, cursor: 'pointer' }}>{lang === 'en' ? '▶ PLAY EPISODE' : '▶ 播放本期'}</button>
+              <button className="btn-lift" style={{ padding: '14px 18px', background: 'transparent', color: 'var(--tql-cool)', border: '1px solid var(--tql-line-2)', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.18em', cursor: 'pointer' }}>{t.transcript} <span className="arrow-shift">↗</span></button>
+              <button className="btn-lift" style={{ padding: '14px 18px', background: 'transparent', color: 'var(--tql-cool)', border: '1px solid var(--tql-line-2)', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.18em', cursor: 'pointer' }}>{t.notes} <span className="arrow-shift">↗</span></button>
             </div>
           </aside>
         </div>
@@ -196,18 +196,18 @@ function EpisodeDetailPage({ id, accent }) {
       <section style={{ padding: '64px 56px' }}>
         <div style={{ maxWidth: 1440, margin: '0 auto' }}>
           <div className="tql-eyebrow" style={{ marginBottom: 24 }}>{t.related_eps}</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+          <Reveal stagger style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
             {rel.map(e => (
-              <Link key={e.ep} to={`/episodes/${e.ep}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <div style={{ width: '100%', aspectRatio: '10/7', position: 'relative' }}>
-                  <div style={{ position: 'absolute', inset: 0 }}>
+              <Link key={e.ep} to={`/episodes/${e.ep}`} className="ep-card" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div style={{ width: '100%', aspectRatio: '10/7', position: 'relative', overflow:'hidden' }}>
+                  <div className="ep-img" style={{ position: 'absolute', inset: 0 }}>
                     <EpisodeCardLocalized ep={e} size="md" />
                   </div>
                 </div>
                 <div style={{ marginTop: 14, fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--tql-mid)', letterSpacing: '0.15em' }}>EP.{String(e.ep).padStart(2, '0')} · {lang === 'en' ? e.theme_en : e.theme_zh}</div>
               </Link>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
     </main>
@@ -237,28 +237,30 @@ function IndexPage({ slug, accent }) {
         </div>
       </section>
       <section style={{ padding: '0 56px 96px' }}>
-        <div style={{ maxWidth: 1440, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 1, background: 'var(--tql-line)', border: '1px solid var(--tql-line)' }}>
-          {window.THEMES.map((th, i) => {
-            const epsForTheme = window.EPS_DATA.filter(e => (lang === 'en' ? e.theme_en : e.theme_zh).toLowerCase() === (lang === 'en' ? th.en : th.zh).toLowerCase()).slice(0, 4);
-            return (
-              <div key={i} style={{ background: '#0B0B0F', padding: '40px 32px', minHeight: 280 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16, fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--tql-mid)', letterSpacing: '0.18em' }}>
-                  <span>§ 0{i + 1}</span><span>{th.count} {t.eps}</span>
+        <Reveal stagger>
+          <SpotlightGrid style={{ maxWidth: 1440, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 1, background: 'var(--tql-line)', border: '1px solid var(--tql-line)' }}>
+            {window.THEMES.map((th, i) => {
+              const epsForTheme = window.EPS_DATA.filter(e => (lang === 'en' ? e.theme_en : e.theme_zh).toLowerCase() === (lang === 'en' ? th.en : th.zh).toLowerCase()).slice(0, 4);
+              return (
+                <div key={i} className="terr-cell" style={{ background: '#0B0B0F', padding: '40px 32px', minHeight: 280 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16, fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--tql-mid)', letterSpacing: '0.18em' }}>
+                    <span>§ 0{i + 1}</span><span>{th.count} {t.eps}</span>
+                  </div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.025em', marginBottom: 12 }}>{lang === 'en' ? th.en : th.zh}</div>
+                  <div style={{ color: '#dfdfdf', fontSize: 18, lineHeight: 1.4, marginBottom: 24, maxWidth: 540, fontFamily: lang === 'zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{lang === 'en' ? th.q_en : th.q_zh}</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8, borderTop: '1px solid var(--tql-line)', paddingTop: 16 }}>
+                    {epsForTheme.length ? epsForTheme.map(e => (
+                      <Link key={e.ep} to={`/episodes/${e.ep}`} style={{ display: 'flex', justifyContent: 'space-between', textDecoration: 'none', color: 'var(--tql-cool)', fontFamily: 'var(--font-mono)', fontSize: 12, padding: '4px 0' }}>
+                        <span>EP.{String(e.ep).padStart(2, '0')} · {e[lang].t1}</span>
+                        <span className="arrow-shift" style={{ color: accent }}>↗</span>
+                      </Link>
+                    )) : <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--tql-mid)' }}>{lang === 'en' ? '— upcoming season' : '— 即将到来'}</span>}
+                  </div>
                 </div>
-                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.025em', marginBottom: 12 }}>{lang === 'en' ? th.en : th.zh}</div>
-                <div style={{ color: '#dfdfdf', fontSize: 18, lineHeight: 1.4, marginBottom: 24, maxWidth: 540, fontFamily: lang === 'zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{lang === 'en' ? th.q_en : th.q_zh}</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, borderTop: '1px solid var(--tql-line)', paddingTop: 16 }}>
-                  {epsForTheme.length ? epsForTheme.map(e => (
-                    <Link key={e.ep} to={`/episodes/${e.ep}`} style={{ display: 'flex', justifyContent: 'space-between', textDecoration: 'none', color: 'var(--tql-cool)', fontFamily: 'var(--font-mono)', fontSize: 12, padding: '4px 0' }}>
-                      <span>EP.{String(e.ep).padStart(2, '0')} · {e[lang].t1}</span>
-                      <span style={{ color: accent }}>↗</span>
-                    </Link>
-                  )) : <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--tql-mid)' }}>{lang === 'en' ? '— upcoming season' : '— 即将到来'}</span>}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </SpotlightGrid>
+        </Reveal>
       </section>
     </main>
   );
@@ -281,13 +283,15 @@ function ManifestoPage({ accent }) {
       <section style={{ padding: '64px 56px 120px' }}>
         <div style={{ maxWidth: 980, margin: '0 auto' }}>
           {t.sections.map((s, i) => (
-            <div key={i} style={{ borderTop: '1px solid var(--tql-line)', padding: '56px 0', display: 'grid', gridTemplateColumns: '120px 1fr', gap: 32 }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: accent, letterSpacing: '0.18em' }}>§ {s.id}</div>
-              <div>
-                <h2 className="tql-h2" style={{ fontSize: 44, margin: '0 0 24px' }}>{s.title}</h2>
-                <div style={{ fontSize: 19, lineHeight: 1.6, whiteSpace: 'pre-line', color: '#dfdfdf', fontFamily: lang === 'zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{s.body}</div>
+            <Reveal key={i} threshold={0.18}>
+              <div style={{ borderTop: '1px solid var(--tql-line)', padding: '56px 0', display: 'grid', gridTemplateColumns: '120px 1fr', gap: 32 }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: accent, letterSpacing: '0.18em' }}>§ {s.id}</div>
+                <div>
+                  <h2 className="tql-h2" style={{ fontSize: 44, margin: '0 0 24px' }}>{s.title}</h2>
+                  <div style={{ fontSize: 19, lineHeight: 1.6, whiteSpace: 'pre-line', color: '#dfdfdf', fontFamily: lang === 'zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{s.body}</div>
+                </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -313,15 +317,17 @@ function SubscribePage({ accent }) {
       <section style={{ padding: '80px 56px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div className="tql-eyebrow" style={{ marginBottom: 32 }}>{t.sub_what}</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 1, background: 'var(--tql-line)', border: '1px solid var(--tql-line)' }}>
-            {t.sub_items.map(([title, body], i) => (
-              <div key={i} style={{ background: '#0B0B0F', padding: '40px 32px' }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: accent, letterSpacing: '0.18em', marginBottom: 16 }}>0{i + 1} / 04</div>
-                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 32, letterSpacing: '-0.02em', marginBottom: 12 }}>{title}</div>
-                <div style={{ color: 'var(--tql-mid)', fontSize: 16, lineHeight: 1.5, fontFamily: lang === 'zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{body}</div>
-              </div>
-            ))}
-          </div>
+          <Reveal stagger>
+            <SpotlightGrid style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 1, background: 'var(--tql-line)', border: '1px solid var(--tql-line)' }}>
+              {t.sub_items.map(([title, body], i) => (
+                <div key={i} className="terr-cell" style={{ background: '#0B0B0F', padding: '40px 32px' }}>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: accent, letterSpacing: '0.18em', marginBottom: 16 }}>0{i + 1} / 04</div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 32, letterSpacing: '-0.02em', marginBottom: 12 }}>{title}</div>
+                  <div style={{ color: 'var(--tql-mid)', fontSize: 16, lineHeight: 1.5, fontFamily: lang === 'zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{body}</div>
+                </div>
+              ))}
+            </SpotlightGrid>
+          </Reveal>
         </div>
       </section>
     </main>

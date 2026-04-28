@@ -1,16 +1,37 @@
 /* Home page — Lab Console / Cognitive Instrument */
 
 function HomePage({ accent }) {
+  const { lang } = useI18N();
+  const marqueeItems = lang === 'en' ? [
+    'TRANSMISSION 042 LIVE',
+    'WHAT DOES IT MEAN TO THINK?',
+    'WHO IS RESPONSIBLE WHEN NO ONE DECIDED?',
+    'WE DO NOT PROVIDE ANSWERS',
+    'WE RE-POSE THE QUESTION',
+    'BEIJING · WEEKLY · SUNDAY',
+    'IS FREEDOM COMPUTABLE?',
+    'NO TRACKERS · NO ADS',
+  ] : [
+    '第 042 期 信号在线',
+    '什么叫做"思考"？',
+    '当没有人决定，谁来承担？',
+    '我们不提供答案',
+    '我们重提问题',
+    '北京 · 每周 · 周日',
+    '自由可以被计算吗？',
+    '无追踪 · 无广告',
+  ];
   return (
     <main>
       <ConsoleHero accent={accent} />
-      <TelemetryStrip accent={accent} />
-      <PrimaryReadout accent={accent} />
-      <RecentLog accent={accent} />
-      <TerritoryGrid accent={accent} />
-      <InterrogationConsole accent={accent} />
-      <ManifestoCard accent={accent} />
-      <SubscribePanel accent={accent} />
+      <MarqueeBand items={marqueeItems} accent={accent} />
+      <Reveal as="div"><TelemetryStrip accent={accent} /></Reveal>
+      <Reveal as="div"><PrimaryReadout accent={accent} /></Reveal>
+      <Reveal as="div"><RecentLog accent={accent} /></Reveal>
+      <Reveal as="div"><TerritoryGrid accent={accent} /></Reveal>
+      <Reveal as="div"><InterrogationConsole accent={accent} /></Reveal>
+      <Reveal as="div"><ManifestoCard accent={accent} /></Reveal>
+      <Reveal as="div"><SubscribePanel accent={accent} /></Reveal>
     </main>
   );
 }
@@ -61,8 +82,9 @@ function ConsoleHero({ accent }) {
   }, [lang]);
 
   return (
-    <section style={{ position:'relative', borderBottom:'1px solid var(--tql-line)' }} className="bg-grid-fine">
-      <div style={{ maxWidth: 1440, margin:'0 auto', padding:'0 56px' }}>
+    <section style={{ position:'relative', borderBottom:'1px solid var(--tql-line)', overflow:'hidden' }} className="bg-grid-fine">
+      <div className="scan-line" />
+      <div style={{ maxWidth: 1440, margin:'0 auto', padding:'0 56px', position:'relative' }}>
         {/* Instrument header bar */}
         <div style={{ display:'grid', gridTemplateColumns:'auto 1fr auto', gap:24, alignItems:'center', padding:'14px 0', borderBottom:'1px solid var(--tql-line)', fontFamily:'var(--font-mono)', fontSize:11, letterSpacing:'0.15em', color:'var(--tql-mid)' }}>
           <span>● <span style={{color:accent}}>LIVE</span> · TQL/CONSOLE</span>
@@ -102,18 +124,18 @@ function ConsoleHero({ accent }) {
             </div>
 
             <div style={{ display:'flex', gap:14, flexWrap:'wrap' }}>
-              <Link to="/episodes/42" style={{
+              <Link to="/episodes/42" className="btn-lift" style={{
                 padding:'18px 26px', background:accent, color:'#0B0B0F', textDecoration:'none',
                 fontFamily:'var(--font-mono)', fontSize:12, letterSpacing:'0.18em', fontWeight:600,
                 display:'inline-flex', alignItems:'center', gap:10,
               }}>
                 <span>▶</span>{t.watch_latest.toUpperCase()}
               </Link>
-              <Link to="/episodes" style={{
+              <Link to="/episodes" className="btn-lift" style={{
                 padding:'18px 26px', border:'1px solid var(--tql-line-2)', color:'#EDEDED', textDecoration:'none',
                 fontFamily:'var(--font-mono)', fontSize:12, letterSpacing:'0.18em',
               }}>
-                {t.browse_all.toUpperCase()} <span style={{ color: accent }}>→</span>
+                {t.browse_all.toUpperCase()} <span className="arrow-shift" style={{ color: accent }}>→</span>
               </Link>
             </div>
           </div>
@@ -164,30 +186,32 @@ function Clock() {
 /* ---------- Telemetry strip ---------- */
 function TelemetryStrip({ accent }) {
   const { lang } = useI18N();
+  /* Each item: [label, render-fn]. Render-fn lets us drop in animated <CountUp> nodes for numeric cells. */
   const items = lang === 'en' ? [
-    ['ARCHIVE', '42 EP'],
-    ['TERRITORIES', '08'],
-    ['SEASON', 'S03 / 2026'],
-    ['CADENCE', 'WEEKLY · SUN'],
-    ['READERS', '12,407'],
-    ['TRACKING', 'NONE'],
-    ['LANG', 'EN / 中文'],
+    ['ARCHIVE',     () => <><CountUp value={42} duration={900} /> EP</>],
+    ['TERRITORIES', () => <CountUp value={8} duration={700} format={(n) => String(n).padStart(2, '0')} />],
+    ['SEASON',      () => 'S03 / 2026'],
+    ['CADENCE',     () => 'WEEKLY · SUN'],
+    ['READERS',     () => <CountUp value={12407} duration={1400} />],
+    ['TRACKING',    () => 'NONE'],
+    ['LANG',        () => 'EN / 中文'],
   ] : [
-    ['存档', '42 集'],
-    ['议题疆域', '08'],
-    ['季度', 'S03 / 2026'],
-    ['频率', '每周日'],
-    ['读者', '12,407'],
-    ['追踪', '无'],
-    ['语言', 'EN / 中文'],
+    ['存档',     () => <><CountUp value={42} duration={900} /> 集</>],
+    ['议题疆域', () => <CountUp value={8} duration={700} format={(n) => String(n).padStart(2, '0')} />],
+    ['季度',     () => 'S03 / 2026'],
+    ['频率',     () => '每周日'],
+    ['读者',     () => <CountUp value={12407} duration={1400} />],
+    ['追踪',     () => '无'],
+    ['语言',     () => 'EN / 中文'],
   ];
   return (
-    <section style={{ borderBottom:'1px solid var(--tql-line)', background:'#08080B' }}>
+    <section style={{ borderBottom:'1px solid var(--tql-line)', background:'#08080B', position:'relative', overflow:'hidden' }}>
+      <span className="sweep-line" />
       <div style={{ maxWidth:1440, margin:'0 auto', padding:'0 56px', display:'grid', gridTemplateColumns:`repeat(${items.length}, 1fr)` }}>
-        {items.map(([k,v], i) => (
+        {items.map(([k, render], i) => (
           <div key={i} style={{ padding:'18px 16px', borderRight: i<items.length-1 ? '1px solid var(--tql-line)' : 'none' }}>
             <div style={{ fontFamily:'var(--font-mono)', fontSize:9, letterSpacing:'0.2em', color:'var(--tql-mid)', marginBottom:6 }}>{k}</div>
-            <div style={{ fontFamily:'var(--font-mono)', fontSize:13, fontWeight:500, color: i===0 ? accent : '#EDEDED', letterSpacing:'0.08em' }}>{v}</div>
+            <div style={{ fontFamily:'var(--font-mono)', fontSize:13, fontWeight:500, color: i===0 ? accent : '#EDEDED', letterSpacing:'0.08em' }}>{render()}</div>
           </div>
         ))}
       </div>
@@ -231,7 +255,7 @@ function PrimaryReadout({ accent }) {
                 <div style={{ fontFamily:'var(--font-mono)', fontSize:11, letterSpacing:'0.16em', color:'var(--tql-mid)' }}>
                   EP.{String(row.e.ep).padStart(2,'0')} · {row.e.theme.toUpperCase()} · {row.e.dur}{t.min.toUpperCase()}
                 </div>
-                <span style={{ fontFamily:'var(--font-mono)', fontSize:11, color:accent, letterSpacing:'0.18em' }}>OPEN ↗</span>
+                <span style={{ fontFamily:'var(--font-mono)', fontSize:11, color:accent, letterSpacing:'0.18em' }}>OPEN <span className="arrow-shift">↗</span></span>
               </div>
             </Link>
           ))}
@@ -289,7 +313,7 @@ function RecentLog({ accent }) {
                 {e[lang].t1} <span style={{ color:'var(--tql-mid)' }}>{e[lang].t2}</span>
               </span>
               <span style={{ fontFamily:'var(--font-mono)', fontSize:12, color:'var(--tql-mid)' }}>{e.dur} {t.min}</span>
-              <span style={{ fontFamily:'var(--font-mono)', fontSize:12, color:accent, textAlign:'right' }}>↗</span>
+              <span className="arrow-shift" style={{ fontFamily:'var(--font-mono)', fontSize:12, color:accent, textAlign:'right' }}>↗</span>
             </Link>
           ))}
         </div>
@@ -310,7 +334,7 @@ function TerritoryGrid({ accent }) {
           <h2 className="tql-h2" style={{ fontSize:'clamp(36px, 4.4vw, 64px)', margin:'0 0 16px' }}>{t.index_title}</h2>
           <div style={{ color:'var(--tql-mid)', fontSize:15, lineHeight:1.55, fontFamily: lang==='zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{t.index_sub}</div>
         </div>
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:1, background:'var(--tql-line)', border:'1px solid var(--tql-line)', marginBottom:48 }}>
+        <SpotlightGrid style={{ display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:1, background:'var(--tql-line)', border:'1px solid var(--tql-line)', marginBottom:48 }}>
           {window.THEMES.map((th, i) => (
             <Link key={i} to={`/index/${(lang==='en'?th.en:th.zh).toLowerCase().replace(/\s+/g,'-')}`} style={{ textDecoration:'none', color:'inherit' }}>
               <div className="terr-cell" style={{ background:'#0B0B0F', padding:'24px 24px 22px', minHeight:200, position:'relative' }}>
@@ -320,11 +344,11 @@ function TerritoryGrid({ accent }) {
                 </div>
                 <div style={{ fontFamily:'var(--font-display)', fontWeight:700, fontSize:24, letterSpacing:'-0.02em', marginBottom:14 }}>{lang==='en'?th.en:th.zh}</div>
                 <div style={{ color:'var(--tql-mid)', fontSize:13, lineHeight:1.45, fontFamily: lang==='zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>{lang==='en'?th.q_en:th.q_zh}</div>
-                <div style={{ position:'absolute', bottom:18, right:20, color:accent, fontFamily:'var(--font-mono)', fontSize:12 }}>↗</div>
+                <div className="arrow-shift" style={{ position:'absolute', bottom:18, right:20, color:accent, fontFamily:'var(--font-mono)', fontSize:12 }}>↗</div>
               </div>
             </Link>
           ))}
-        </div>
+        </SpotlightGrid>
       </div>
       <style>{`.terr-cell { transition: background .25s; } .terr-cell:hover { background: #101015 !important; }`}</style>
     </section>
