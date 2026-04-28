@@ -332,15 +332,15 @@ function ManifestoPage({ accent }) {
     <main>
       <section style={{ borderBottom: '1px solid var(--tql-line)', padding: '120px 56px 80px' }}>
         <div style={{ maxWidth: 980, margin: '0 auto' }}>
-          <div className="tql-eyebrow" style={{ marginBottom: 24 }}>// {t.nav.manifesto} · {lang === 'en' ? 'PROGRAM v1.0' : '节目体系 v1.0'}</div>
+          <div className="tql-eyebrow" style={{ marginBottom: 24 }}>// {t.nav.manifesto}</div>
           <h1 className="tql-h1" style={{ fontSize: 'clamp(56px, 8vw, 124px)', margin: '0 0 40px' }}>
-            {lang === 'en' ? 'AI is not a new technology.' : 'AI 不是一项新技术。'}<br />
-            <span style={{ color: accent }}>{lang === 'en' ? 'It is a mirror.' : '它是一面镜子。'}</span>
+            {lang === 'en' ? 'A lab,' : '一间实验室，'}<br />
+            <span style={{ color: accent }}>{lang === 'en' ? 'not a clinic.' : '不是诊所。'}</span>
           </h1>
           <div style={{ color: 'var(--tql-mid)', fontSize: 19, lineHeight: 1.6, maxWidth: 760, fontFamily: lang === 'zh' ? 'Noto Sans SC, sans-serif' : 'inherit' }}>
             {lang === 'en'
-              ? 'Five sections on why this program exists, where it stands among adjacent channels, the three principles that govern every episode, the seven-beat structure each episode follows, and the mission we hold to.'
-              : '五条主张：我们为什么存在、在相邻频道之间的位置、每一集都遵守的三条原则、每一集 14–18 分钟所遵循的七段结构、以及我们要守住的使命。'}
+              ? 'Four propositions: on asking, on not answering, on the after-AI, on responsibility.'
+              : '四条主张：论提问、论不回答、论"后 AI"、论责任。'}
           </div>
         </div>
       </section>

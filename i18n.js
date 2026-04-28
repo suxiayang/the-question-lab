@@ -58,11 +58,11 @@ window.I18N = {
     reposed_a: 'RE-POSED · A', reposed_b: 'RE-POSED · B',
 
     // Manifesto excerpt on home
-    manifesto_eyebrow: 'OPERATING DOCTRINE',
-    manifesto_body_1: 'Artificial intelligence is not a new technology.',
-    manifesto_body_2: 'It is a mirror — reflecting the fundamental questions humanity has accumulated for millennia and never truly answered.\n\nWhat is thinking? What is the self? What is consciousness? What is understanding? What is the good? What should we do?',
-    manifesto_body_3: 'Until now these questions lived only in philosophy textbooks.\nNow, because of AI, they are choices every ordinary person must answer in daily life.',
-    manifesto_body_4: 'We do not try to answer them.\nWe put them back on the table.',
+    manifesto_eyebrow: 'MANIFESTO / 01 · ON ASKING',
+    manifesto_body_1: 'For 2,500 years, philosophy was a discipline of asking.',
+    manifesto_body_2: 'Knowledge was rare. Authority was loud.\nThe question, like fire, had to be tended.\n\nThen knowledge became searchable.\nOpinions became autocompleted.\nAnswers arrived before the question was finished.',
+    manifesto_body_3: 'What is left of thinking when its conclusion can be summoned?',
+    manifesto_body_4: 'This lab does not provide answers.\nIt re-poses the question.',
 
     sub_eyebrow: 'SUBSCRIBE',
     sub_title: 'One question, every other Sunday.',
@@ -101,19 +101,17 @@ window.I18N = {
       { tag: '14:30', label: 'An unsettling fact' },
     ],
 
-    // Manifesto page (5 sections re-derived from doc §1, §9, §14)
+    // Manifesto page (4 sections)
     section: '§',
     sections: [
-      { id: '01', title: 'Why we exist',
-        body: 'Artificial intelligence is not a new technology. It is a mirror — reflecting the fundamental questions humanity has accumulated for millennia and never truly answered.\n\n"What is thinking? What is the self? What is consciousness? What is understanding? What is the good? What should we do?"\n\nUntil now these questions lived only in philosophy textbooks. Now, because of AI, they are choices every ordinary person must answer in daily life.\n\nThe Question Lab does not try to answer them. Our task is to put them back on the table — to bring them out of academic abstraction into a form that ordinary people can understand, feel, and think.' },
-      { id: '02', title: 'Where we stand',
-        body: 'AI news channels report developments. We do not — but we use AI developments as a starting point for inquiry.\n\nPhilosophy channels explain the classics. We do not — but we use the classics as a tool for inquiry.\n\nTech-review channels comment on AI\'s impact. We do not — but we expose the conceptual ground that AI is shifting.\n\nAI-anxiety channels amplify threat. We do not — but we take real risks seriously.\n\nTQL\'s position is the navigator for AI philosophy: trace contemporary AI questions back to their root philosophical problems, then bring them forward into concrete present-day choices.' },
-      { id: '03', title: 'Three operating principles',
-        body: '01 · Question before answer.\nEvery episode opens with a question that disturbs. We do not pretend to have an answer. We only promise to ask the question clearly enough.\n\n02 · Thought-history × contemporary case.\nEvery episode crosses centuries of philosophy with a real, specific, contemporary AI case. Both tracks are required.\n\n03 · No saccharine endings.\nNo episode ends with "so we should…". Every episode ends with a fact or question that gives you a chill, makes you pause, makes you put down the phone in silence.' },
-      { id: '04', title: 'How an episode is built',
-        body: 'Each 14–18 minute episode follows a strict seven-beat structure:\n\n[1] Cold open — a disturbing concrete scene  (≈30s)\n[2] Passage through 2–4 historical thinkers  (≈4–5 min)\n[3] The tension between their positions  (≈2 min)\n[4] A real, current AI-era case  (≈3–4 min)\n[5] Side-by-side of contemporary stances  (≈2 min)\n[6] The question pushed to its sharpest point  (≈2 min)\n[7] An unsettling fact  (≈30s)\n\nNothing on the cutting room floor. The structure is the discipline.' },
-      { id: '05', title: 'Mission',
-        body: 'We do not pretend to have answers.\n\nOur task is to put the buried, foundational questions back on the table.\n\nWe do this not because it will make us more successful, more efficient, more modern —\n\nbut because in an age where AI rewrites everything, only by re-questioning can we know what we are choosing.' },
+      { id: '01', title: 'On asking',
+        body: 'For 2,500 years, philosophy was a discipline of asking. Knowledge was rare. Authority was loud. The question, like fire, had to be tended.\n\nThen knowledge became searchable. Opinions became autocompleted. Answers arrived before the question was finished.\n\nWhat is left of thinking when its conclusion can be summoned?' },
+      { id: '02', title: 'On not answering',
+        body: 'We do not write episodes to settle a debate. We write them to expose the frame inside the debate.\n\nMost questions about AI carry assumptions older than AI. Substance dualism. Productivist epistemology. The myth of the singular self. We try to find the assumption first, and re-pose the question without it.' },
+      { id: '03', title: 'On the after-AI',
+        body: '"After-AI" is not a date. It is a condition: the moment when the cost of producing a plausible answer falls to zero, and the work of the mind is no longer demonstrated by what it can output.\n\nIn that condition, attention is not the scarce thing. The well-formed question is.' },
+      { id: '04', title: 'On responsibility',
+        body: 'When no one decided, someone is still implicated. When the system was thinking, someone built the system. We refuse the comfort of distributed irresponsibility.\n\nA question is also a hand. Whose, and reaching for what.' },
     ],
 
     // Subscribe page
@@ -193,11 +191,11 @@ window.I18N = {
     hidden_assumption: '隐藏假设',
     reposed_a: '重提 · A', reposed_b: '重提 · B',
 
-    manifesto_eyebrow: '操作原则',
-    manifesto_body_1: '人工智能不是一项新技术。',
-    manifesto_body_2: '它是一面镜子——照出人类几千年积累但从未真正回答的根本问题。\n\n什么是思考？什么是我？什么是意识？什么是理解？什么是好的？我们应该做什么？',
-    manifesto_body_3: '这些问题，过去只在哲学课本里。\n现在，因为 AI 的出现，它们变成了每个普通人在生活中必须实际回答的选择。',
-    manifesto_body_4: '我们不试图回答这些问题。\n我们的任务是——把它们重新摆到桌面上。',
+    manifesto_eyebrow: '实验室宣言 / 01 · 论提问',
+    manifesto_body_1: '两千五百年来，哲学是一门关于"提问"的学科。',
+    manifesto_body_2: '知识稀有，权威响亮。\n提问，如同火，需要被看护。\n\n然后知识变得可以检索。\n意见变得可以补全。\n答案在问题尚未问完时就已抵达。',
+    manifesto_body_3: '当结论可以被召唤，思考还剩下什么？',
+    manifesto_body_4: '这间实验室不提供答案。\n它重新提出问题。',
 
     sub_eyebrow: '订阅',
     sub_title: '每两周一题。',
@@ -235,16 +233,14 @@ window.I18N = {
 
     section: '§',
     sections: [
-      { id: '01', title: '我们为什么存在',
-        body: '人工智能不是一项新技术。它是一面镜子——照出人类几千年积累但从未真正回答的根本问题。\n\n"什么是思考？什么是我？什么是意识？什么是理解？什么是好的？我们应该做什么？"\n\n这些问题，过去只在哲学课本里。现在，因为 AI 的出现，它们变成了每个普通人在生活中必须实际回答的选择。\n\nThe Question Lab 不试图回答这些问题。我们的任务是——把这些问题，重新摆到桌面上。让它们从抽象的学院讨论，变成可被普通人理解、感受、思考的具体追问。' },
-      { id: '02', title: '我们的位置',
-        body: 'AI 资讯频道报道 AI 进展。我们不报道，但用 AI 进展作为追问起点。\n\n哲学普及频道讲解经典哲学。我们不讲解经典，但用经典作为追问工具。\n\n科技评论频道评论 AI 影响。我们不评论，但揭示 AI 改变的"概念基础"。\n\nAI 焦虑频道渲染 AI 威胁。我们不渲染情绪，但严肃面对真实风险。\n\nTQL 的独特位置——AI 哲学的"导航站"：把当代 AI 议题反向追溯到根本哲学问题，再带回现实选择场景。' },
-      { id: '03', title: '三条设计原则',
-        body: '01 · 问题先于答案。\n每一集都从一个让人不安的问题开始。我们不假装我们有答案。我们只承诺——把问题问得足够清楚。\n\n02 · 思想史 × 当下案例。\n每一集结构上必须双轨：穿越几百年的思想史 + 落到一个具体的、真实的、当代的 AI 时代案例。\n\n03 · 不给鸡汤式答案。\n每一集结尾不是"所以我们应该……"。结尾是一个让人脊背发凉、让人重新思考、让人放下手机久久无言的事实或追问。' },
-      { id: '04', title: '一集是怎么搭出来的',
-        body: '每集 14–18 分钟，严格遵循 7 段式结构：\n\n[1] 提问入口 · 一个让人不安的具体场景  (≈30 秒)\n[2] 思想史穿越 · 2–4 位历史思想家  (≈4–5 分钟)\n[3] 当代张力 · 思想史立场之间的核心冲突  (≈2 分钟)\n[4] AI 时代切入 · 真实的当代案例  (≈3–4 分钟)\n[5] 立场综合 · 几种当代立场的并列  (≈2 分钟)\n[6] 真正的问题 · 把追问推到最尖锐的地方  (≈2 分钟)\n[7] 不安的收尾 · 让人放下手机久久无言的事实  (≈30 秒)\n\n剪辑室里没有"剪掉就好"的余地。结构本身就是纪律。' },
-      { id: '05', title: '使命',
-        body: '我们不假装我们有答案。\n\n我们的任务，是把那些被掩埋了的根本问题，重新摆到桌面上。\n\n我们做这件事，不是因为它会让我们更成功、更高效、更现代——\n\n而是因为，在 AI 改写一切的时代，只有重新追问，我们才能真正知道我们在选择什么。' },
+      { id: '01', title: '论提问',
+        body: '两千五百年来，哲学是一门关于"提问"的学科。知识稀有，权威响亮。提问，如同火，需要被看护。\n\n然后知识变得可以检索。意见变得可以补全。答案在问题尚未问完时就已抵达。\n\n当结论可以被召唤，思考还剩下什么？' },
+      { id: '02', title: '论不回答',
+        body: '我们写每一集，不为平息一场争论。我们写每一集，是为了暴露争论内部的框架。\n\n大多数关于 AI 的问题，承载着比 AI 更古老的假设：实体二元论、生产主义认识论、单一自我的神话。我们先找出那个假设，再去除它，重新提出问题。' },
+      { id: '03', title: '论"后 AI"',
+        body: '"后 AI"不是一个日期。它是一种处境：当生产一个看似合理答案的成本归零时，心智的工作不再由它能产出什么来证明。\n\n在这种处境里，注意力不是稀缺。一个被良好构造的问题，才是。' },
+      { id: '04', title: '论责任',
+        body: '当没有人决定，仍然有人被牵涉。当系统在思考，是有人建造了系统。我们拒绝分布式不负责的安慰。\n\n一个问题，也是一只手。它属于谁，伸向何处。' },
     ],
 
     sub_page_title: '一题。', sub_page_title_2: '每两周抵达一次。',
